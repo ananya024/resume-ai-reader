@@ -1,0 +1,111 @@
+/* App.css */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,Segoe UI,sans-serif;
+    background:#eef3fb;
+    color:#1e293b;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:12px;
+    font-size:2.5rem;
+}
+
+.upload-box{
+    width:700px;
+    margin:50px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.upload-box p{
+    margin-bottom:20px;
+    color:#64748b;
+}
+
+input[type=file]{
+    width:100%;
+    padding:15px;
+    border:2px dashed #94a3b8;
+    border-radius:12px;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.file-name{
+    margin-bottom:20px;
+    color:#2563eb;
+    font-weight:600;
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+button:disabled{
+    background:#94a3b8;
+    cursor:not-allowed;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.loading-container{
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+.loader{
+    width:70px;
+    height:70px;
+    border:8px solid #dbeafe;
+    border-top:8px solid #2563eb;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}

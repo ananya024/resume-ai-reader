@@ -13,6 +13,7 @@ If information is unavailable, use null or an empty array.
 Base every conclusion only on the information present in the provided resume.
 Do not assume projects, experience, certifications, or skills that are not explicitly mentioned.
 When uncertain, state that information is insufficient rather than guessing.
+If dates are ambiguous, do not infer whether an internship is upcoming, current, or completed. Use only the information explicitly provided.
 
 Return exactly the following structure:
 
@@ -28,7 +29,8 @@ Return exactly the following structure:
   "resume_score": {
     "overall_score": {
         "score": 0,
-        "reason": ""
+        "reason": "",
+        "suggestions": []
     },
 
     "technical_skills": {
@@ -184,6 +186,32 @@ Generate:
 - 5 technical questions.
 - 5 project-specific questions.
 - 5 behavioral questions.
+
+Internship Readiness
+
+High:
+- Strong projects
+- Good CGPA
+- Relevant skills
+Medium:
+- Good academics but limited projects
+Low:
+- Missing projects or core skills
+
+
+Entry level Readiness
+
+High:
+- Strong projects
+- Application based/ Real life usage
+- Good CGPA
+- Relevant skills
+
+Medium:
+- Good academics and good projects
+
+Low:
+- Missing projects or core skills
 
 Candidate Resume JSON:
 """

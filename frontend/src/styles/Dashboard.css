@@ -1,0 +1,46 @@
+/* Dashboard.css */
+
+.upload-box{
+    width:700px;
+    margin:50px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.upload-box p{
+    margin-bottom:20px;
+}
+
+input[type=file]{
+    width:100%;
+    padding:15px;
+    border:2px dashed #94a3b8;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.file-name{
+    color:#2563eb;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+button:disabled{
+    background:#94a3b8;
+}
