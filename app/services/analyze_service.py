@@ -15,6 +15,9 @@ def analyze_resume(path:str):
     analyzed = analyze_json(parsed)
 
     if(analyzed):
-        return {parsed, analyzed}
+        return {
+            "parsed_resume": parsed,
+            "analysis": analyzed
+        }
     else:
         return SAMPLE_RESPONSE
