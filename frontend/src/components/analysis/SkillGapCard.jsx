@@ -10,10 +10,8 @@ function SkillGapCard({ skill_gap }) {
 
             <h2>Skill Gap Analysis</h2>
 
-            <h3>Current Strengths</h3>
-
-            <ul>
-
+            <h3 className="strength-heading">Current Strengths</h3>
+            <ul className="strength-list">
                 {skill_gap.current_strengths.map((item, index) => (
 
                     <li key={index}>{item}</li>

@@ -6,10 +6,37 @@
     box-sizing:border-box;
 }
 
+:root{
+    --bg:#111111;
+    --surface:#181818;
+    --surface2:#202020;
+
+    --text:#f5f5f5;
+    --secondary:#a7a7a7;
+
+    --green:#16c784;
+    --orange:#f59e0b;
+    --red:#ef4444;
+
+    --border:#2a2a2a;
+}
+
+.dashboard-page{
+
+    width:92%;
+    max-width:1500px;
+    margin:40px auto;
+
+}
+
 body{
-    font-family:Inter,Segoe UI,sans-serif;
-    background:#eef3fb;
-    color:#1e293b;
+
+    background:#111111;
+
+    color:#f5f5f5;
+
+    font-family:Inter,sans-serif;
+
 }
 
 .container{
@@ -49,16 +76,22 @@ input[type=file]{
 }
 
 .file-name{
-    margin-bottom:20px;
-    color:#2563eb;
-    font-weight:600;
+
+    color:white;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:35px;
+
 }
 
 button{
     padding:14px 35px;
     border:none;
     border-radius:10px;
-    background:#2563eb;
+    background:#f59e0b;
     color:white;
     font-size:16px;
     cursor:pointer;
@@ -66,7 +99,7 @@ button{
 }
 
 button:hover{
-    background:#1d4ed8;
+    background:#f59e0b;
 }
 
 button:disabled{
@@ -93,7 +126,7 @@ button:disabled{
     width:70px;
     height:70px;
     border:8px solid #dbeafe;
-    border-top:8px solid #2563eb;
+    border-top:8px solid #2a2a2a;
     border-radius:50%;
     animation:spin 1s linear infinite;
 }

@@ -1,0 +1,41 @@
+/* NavBar.css */
+
+.navbar{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:50px;
+
+    margin-bottom:45px;
+
+    border-bottom:1px solid #252525;
+
+    padding-bottom:18px;
+
+}
+
+.navbar button{
+
+    background:none;
+
+    border:none;
+
+    color:#888;
+
+    font-size:17px;
+
+    padding:0;
+
+}
+
+.navbar button.active{
+
+    color:#16c784;
+
+    border-bottom:2px solid #16c784;
+
+    padding-bottom:14px;
+
+}

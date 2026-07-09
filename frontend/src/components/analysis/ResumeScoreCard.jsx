@@ -31,16 +31,18 @@ function ResumeScoreCard({ resume_score }) {
             <h1>Projects</h1>
             <ul>
                 {resume_score.projects?.map((project,index)=>(
-                    <>
-                        <p><strong>{project.project_name}</strong></p>
-                        <h2>{project.score}/100</h2>
-                        <p>{project.reason}</p>
-                        <ul>
-                            {project.suggestions?.map((suggestion, index) => (
-                                <li key={index}>{suggestion}</li>
-                            ))}
-                        </ul>
-                    </>
+                    <li key ={index}>
+                        <div>
+                            <p><strong>{project.project_name}</strong></p>
+                            <h2>{project.score}/100</h2>
+                            <p>{project.reason}</p>
+                            <ul>
+                                {project.suggestions?.map((suggestion, index) => (
+                                    <li key={index}>{suggestion}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </li>
                 ))}
             </ul>
         </div>

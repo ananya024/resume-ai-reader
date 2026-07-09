@@ -1,33 +1,56 @@
 /* Card.css */
 
 .card{
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 10px 35px rgba(0,0,0,.08);
-    transition:.3s;
-}
 
+    background:#181818;
+
+    border:1px solid #2b2b2b;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    transition:.3s;
+
+}
 .card:hover{
-    transform:translateY(-5px);
+
+    border-color:#16c784;
+
+    transform:translateY(-3px);
+
 }
 
 .card h2{
-    color:#2563eb;
-    margin-bottom:20px;
-    border-bottom:2px solid #e2e8f0;
-    padding-bottom:10px;
+
+    color:white;
+
+    font-size:30px;
+
+    margin-bottom:25px;
+
 }
 
 .card h3{
-    margin-top:20px;
-    margin-bottom:10px;
-    color:#334155;
+
+    color:#16c784;
+
 }
 
 .card p{
-    line-height:1.7;
-    margin-bottom:10px;
+
+    font-size:17px;
+
+    color:#c8c8c8;
+
+    line-height:1.9;
+
+}
+
+strong{
+
+    color:white;
+
 }
 
 .card ul{
@@ -35,18 +58,101 @@
 }
 
 .card li{
-    margin-bottom:8px;
-    line-height:1.6;
+
+    margin:14px 0;
+
+    color:#d5d5d5;
+
 }
 
 .card h1{
     font-size:54px;
-    color:#2563eb;
+    color:white;
     margin:20px 0;
 }
 
 .score{
-    font-size:54px;
+    font-size:64px;
+    color:#16c784;
+    font-weight:700;
+}
+
+ul{
+
+    list-style:none;
+
+    padding-left:0;
+
+}
+
+li::before{
+
+    content:"✓";
+
+    color:#16c784;
+
+    margin-right:10px;
+
+}
+
+/* Section headings */
+
+.strength-heading{
+    color:#16c784;
+    margin-top:24px;
+    margin-bottom:12px;
+}
+
+.weakness-heading{
+    color:#ef4444;
+    margin-top:24px;
+    margin-bottom:12px;
+}
+
+.strength-list{
+    list-style:none;
+    padding-left:0;
+}
+
+.strength-list li{
+    margin:14px 0;
+    color:#d5d5d5;
+}
+
+.strength-list li::before{
+    content:"✓";
+    color:#16c784;
+    margin-right:10px;
     font-weight:bold;
-    color:#16a34a;
+}
+
+.weakness-list{
+    list-style:none;
+    padding-left:0;
+}
+
+.weakness-list li{
+    margin:14px 0;
+    color:#d5d5d5;
+}
+
+.weakness-list li::before{
+    content:"✕";
+    color:#ef4444;
+    margin-right:10px;
+    font-weight:bold;
+}
+
+.strength-list{
+    background:rgba(22,199,132,.08);
+    border:1px solid rgba(22,199,132,.25);
+    border-radius:12px;
+    padding:14px 18px;
+}
+
+.weakness-list{
+    background:rgba(239,68,68,.08);
+    border:1px solid rgba(239,68,68,.25);
+    border-radius:12px;
+    padding:14px 18px;
 }

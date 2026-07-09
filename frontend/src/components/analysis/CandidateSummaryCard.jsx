@@ -21,17 +21,15 @@ function CandidateSummaryCard({ candidate_summary }) {
 
             <p>{candidate_summary.overall_summary}</p>
 
-            <h3>Strengths</h3>
-
-            <ul>
+            <h3 className="strength-heading">Strengths</h3>
+            <ul className="strength-list">
                 {candidate_summary.key_strengths.map((strength, index) => (
                     <li key={index}>{strength}</li>
                 ))}
             </ul>
 
-            <h3>Weaknesses</h3>
-
-            <ul>
+            <h3 className="weakness-heading">Weaknesses</h3>
+            <ul className="weakness-list">
                 {candidate_summary.key_weaknesses.map((weakness, index) => (
                     <li key={index}>{weakness}</li>
                 ))}

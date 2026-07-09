@@ -6,7 +6,7 @@ from app.services.SAMPLE_RESPONSE import SAMPLE_RESPONSE
 
 def analyze_resume(path:str):
     text,links= read_pdf(path)
-    # return SAMPLE_RESPONSE
+    return SAMPLE_RESPONSE
     parsed= parse_resume(text, links)
 
     if "error" in parsed:
@@ -15,6 +15,6 @@ def analyze_resume(path:str):
     analyzed = analyze_json(parsed)
 
     if(analyzed):
-        return analyzed
+        return {parsed, analyzed}
     else:
         return SAMPLE_RESPONSE

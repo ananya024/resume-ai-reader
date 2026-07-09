@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import {analyseResume} from "../../services/api"
-import AnalysisDashboard from "../analysis/AnalysisDashboard";
+import NavBar from "../common/NavBar"
+import Dashboard from "../Dashboard";
 import "../../App.css"
 
 function FileUpload(){
@@ -51,7 +52,7 @@ function FileUpload(){
             </div>
         :
             <div className="analysis-box">
-                {resumeAnalysis && (<AnalysisDashboard  analysis={resumeAnalysis}/>)}
+                {resumeAnalysis && (<Dashboard  analysis={resumeAnalysis}/>)}
             </div>
         }
     </>)

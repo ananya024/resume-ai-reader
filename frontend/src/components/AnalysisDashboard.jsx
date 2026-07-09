@@ -1,23 +1,25 @@
 // AnalysisDashboard.jsx
 
-import "../../App.css";
-import "../../styles/Dashboard.css";
-import "../../styles/AnalysisDashboard.css";
-import "../../styles/Card.css"
-import CandidateSummaryCard from "../analysis/CandidateSummaryCard";
-import ResumeScoreCard from "../analysis/ResumeScoreCard";
-import ATSAnalysisCard from "../analysis/ATSAnalysisCard";
-import ResumeImprovementsCard from "../analysis/ResumeImprovementsCard";
-import CareerRecommendationCard from "../analysis/CareerRecommendationCard";
-import SkillGapCard from "../analysis/SkillGapCard";
-import LearningRoadmapCard from "../analysis/LearningRoadmapCard";
-import InterviewQuestionsCard from "../analysis/InterviewQuestionsCard";
+import "../App.css";
+import "../styles/Dashboard.css";
+import "../styles/AnalysisDashboard.css";
+import "../styles/Card.css"
+import CandidateSummaryCard from "./analysis/CandidateSummaryCard";
+import ResumeScoreCard from "./analysis/ResumeScoreCard";
+import ATSAnalysisCard from "./analysis/ATSAnalysisCard";
+import ResumeImprovementsCard from "./analysis/ResumeImprovementsCard";
+import CareerRecommendationCard from "./analysis/CareerRecommendationCard";
+import SkillGapCard from "./analysis/SkillGapCard";
+import LearningRoadmapCard from "./analysis/LearningRoadmapCard";
+import InterviewQuestionsCard from "./analysis/InterviewQuestionsCard";
 
 function AnalysisDashboard({analysis}){
     if(!analysis)
         return null;
     return (<>
-        <p className="file-name">Resume analysis report:</p>
+        <div>
+            <p className="file-name">Resume Analysis</p>
+        </div>
         <div className="dashboard">
             <CandidateSummaryCard
                 candidate_summary={analysis.candidate_summary}

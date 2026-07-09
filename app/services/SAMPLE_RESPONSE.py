@@ -1,357 +1,485 @@
 # SAMPLE_RESPONSE.py
 
 SAMPLE_RESPONSE={
-  "candidate_summary": {
-    "professional_level": "Intern",
-    "overall_summary": "Ananya Agarwal is an enthusiastic B.Tech student specializing in Computer Science – Artificial Intelligence & Machine Learning, demonstrating a strong foundation in full-stack web development and emerging AI/ML concepts. With an excellent academic record (9.36 CGPA), she has practical experience through a listed internship and multiple comprehensive projects. Her skills span modern web technologies, databases, and foundational programming, making her a promising candidate for roles in backend, full-stack, or AI/ML development.",
-    "key_strengths": [
-      "Strong academic record (9.36 CGPA)",
-      "Proficient in multiple full-stack technologies (PERN, NestJS, React.js, Node.js)",
-      "Experience with real-time communication (Socket.IO) and secure authentication (JWT)",
-      "Demonstrated ability to build production-style backend modules and RESTful APIs",
-      "Hands-on experience with AI-powered data extraction tools (FastAPI, PyMuPDF, LLM-based extraction)",
-      "Solid understanding of Data Structures & Algorithms with competitive programming mentions"
-    ],
-    "key_weaknesses": [
-      "Limited professional experience duration, with the listed internship starting in the future relative to current date if 'Present' refers to real-world current time.",
-      "Lack of explicit cloud computing or DevOps experience",
-      "No listed soft skills, leadership roles (beyond organizing committee), or quantifiable achievements outside of project descriptions",
-      "Missing professional summary and portfolio link",
-      "Certifications lack issuer and date, reducing their impact"
-    ],
-    "career_domain": "Full Stack Development (Backend focus) & AI/ML"
-  },
-  "resume_score": {
-    "overall_score": {
-      "score": 75,
-      "reason": "The candidate presents a strong academic background and impressive project work for their level, demonstrating proficiency in a wide range of relevant technologies. However, the professional experience section is limited in duration, and key resume components like a professional summary, location, and a clear distinction of internship status (upcoming vs. ongoing) are missing or ambiguous. Lack of cloud/DevOps skills also limits the overall score for current market demands.",
-      "suggestions": []
-    },
-    "technical_skills": {
-      "score": 85,
-      "reason": "The candidate lists a broad and relevant set of technical skills, covering multiple programming languages, modern web frameworks (React, Node, NestJS), databases (PostgreSQL, Oracle), and development tools. The inclusion of DSA, REST APIs, and specific libraries like Socket.IO and LLM-based extraction is highly commendable for an intern. The only areas for improvement are the lack of explicit cloud platform skills and containerization knowledge.",
-      "suggestions": [
-        "Include any experience with cloud platforms (AWS, Azure, GCP).",
-        "Add version control best practices and CI/CD tools if applicable.",
-        "Mention testing frameworks or practices if used."
+  "parsed_resume": {
+    "name": "Ananya Agarwal",
+    "email": "agarwalananya2006@gmail.com",
+    "phone": "+91 98755 03953",
+    "location": None,
+    "linkedin": "https://www.linkedin.com/in/ananya-agarwal-077607366/",
+    "github": "https://github.com/ananya024",
+    "portfolio": None,
+    "professional_summary": None,
+    "skills": {
+      "programming_languages": [
+        "C",
+        "C++",
+        "Python",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "React.js",
+        "Node.js",
+        "Express.js"
+      ],
+      "libraries": [
+        "STL (vector, set, unordered map, priority queue)"
+      ],
+      "databases": [
+        "PostgreSQL (Neon)"
+      ],
+      "tools": [
+        "Git",
+        "GitHub",
+        "VS Code",
+        "Postman"
+      ],
+      "cloud": [],
+      "other": [
+        "Data Structures and Algorithms",
+        "Database Management Systems",
+        "Operating Systems",
+        "Artificial Intelligence"
       ]
     },
+    "education": [
+      {
+        "institution": "Manipal Institute of Technology, Manipal",
+        "degree": "B.Tech in Computer Science (AI & ML)",
+        "field_of_study": "Computer Science (AI & ML)",
+        "start_date": "2024",
+        "end_date": "2028",
+        "cgpa": "9.30 / 10"
+      }
+    ],
+    "experience": [
+      {
+        "company": "ACM Student Chapter Manipal, TechTatva 2025 (MIT Tech Fest)",
+        "position": "Organizing Committee Member",
+        "location": None,
+        "start_date": None,
+        "end_date": None,
+        "description": []
+      }
+    ],
     "projects": [
       {
-        "project_name": "Galax-O – Real-Time Chat Web Application",
+        "title": "Course Tracker",
+        "technologies": [
+          "PERN Stack (PostgreSQL, Express.js, React.js, Node.js)"
+        ],
+        "description": [
+          "Built a full-stack course tracking app using the PERN stack, with user authentication, REST APIs (Node.js/Express), and PostgreSQL (Neon database) for course management. Enabled dynamic course add/update/delete functionality."
+        ]
+      },
+      {
+        "title": "YouTube Clone",
+        "technologies": [
+          "React",
+          "JavaScript",
+          "HTML",
+          "CSS"
+        ],
+        "description": [
+          "Developed a YouTube-inspired video browsing UI with React, including reusable components, a video watch page, sidebar, and navigation between grid and playback views.",
+          "Designed a responsive layout replicating YouTube."
+        ]
+      },
+      {
+        "title": "Problem Solving",
+        "technologies": [
+          "C++"
+        ],
+        "description": [
+          "Practicing Data Structures and Algorithms using C++",
+          "Familiar with STL including vector, set, unordered map, priority queue",
+          "Platforms: LeetCode, CodeChef"
+        ]
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Data Analytics and Machine Learning Bootcamp",
+        "issuer": None,
+        "date": None
+      },
+      {
+        "name": "Web Development Bootcamp",
+        "issuer": None,
+        "date": None
+      },
+      {
+        "name": "Data Structures and Algorithms Bootcamp",
+        "issuer": None,
+        "date": None
+      },
+      {
+        "name": "Generative AI Workshop",
+        "issuer": None,
+        "date": None
+      }
+    ],
+    "achievements": [],
+    "languages": [],
+    "interests": []
+  },
+  "analysis": {
+    "candidate_summary": {
+      "professional_level": "Intern",
+      "overall_summary": "Ananya Agarwal is a highly motivated first-year B.Tech student in Computer Science (AI & ML) with an excellent academic record. She has proactively developed foundational skills in full-stack web development using the PERN stack, C++, Python, and JavaScript, complemented by strong problem-solving abilities in Data Structures and Algorithms. Her early engagement in projects and bootcamps demonstrates a clear passion for technology and a commitment to continuous learning, making her a promising candidate for internship roles.",
+      "key_strengths": [
+        "Strong academic foundation with a high CGPA (9.30/10)",
+        "Proactive self-learner, demonstrated by multiple bootcamps and personal projects",
+        "Good foundational skills in full-stack web development (PERN stack)",
+        "Proficient in Data Structures and Algorithms with C++ and STL",
+        "Familiarity with core CS concepts like OS, DBMS, AI"
+      ],
+      "key_weaknesses": [
+        "Lack of professional technical work experience or internships",
+        "Projects, while foundational, lack complexity, real-world deployment, and quantifiable impact",
+        "Limited depth in AI/ML application, despite the degree specialization",
+        "Missing critical details for certifications (issuer, date) and experience (specific responsibilities, dates)",
+        "Absence of soft skills, teamwork, or leadership examples beyond a committee role"
+      ],
+      "career_domain": "Full Stack Web Development (Emerging interest in AI/ML)"
+    },
+    "resume_score": {
+      "overall_score": {
+        "score": 35,
+        "reason": "The candidate is a first-year student with strong academic performance and foundational skills. However, the lack of professional experience, limited project complexity/deployment, and incomplete details in sections like experience and certifications bring the overall score down. While strong for a first-year, it's low in a competitive market for internships."
+      },
+      "technical_skills": {
+        "score": 65,
+        "reason": "The candidate lists a good range of foundational programming languages (C, C++, Python, JavaScript) and web frameworks (React.js, Node.js, Express.js), along with databases (PostgreSQL) and essential tools (Git, GitHub, Postman). Mastery of DSA and familiarity with core CS subjects are also positive. The score reflects a solid foundational skill set for a junior role, but lacks advanced concepts, cloud expertise, or specialized AI/ML tools/frameworks.",
+        "suggestions": [
+          "Include specific AI/ML frameworks (e.g., TensorFlow, PyTorch, scikit-learn) relevant to the degree.",
+          "Add familiarity with cloud platforms (AWS, Azure, GCP) as they become increasingly essential.",
+          "Specify proficiency levels for each skill if possible."
+        ]
+      },
+      "projects": [
+        {
+          "project_name": "Course Tracker",
+          "score": 60,
+          "reason": "This is a good full-stack project demonstrating proficiency with the PERN stack, user authentication, REST APIs, and database integration. It shows practical application of learned technologies. However, it lacks details on challenges faced, unique features, or any deployment status.",
+          "suggestions": [
+            "Describe specific challenges encountered and how they were overcome.",
+            "Quantify any achievements or performance improvements if applicable.",
+            "Mention if the project is deployed and provide a link if so.",
+            "Highlight any unique features or architectural decisions made."
+          ]
+        },
+        {
+          "project_name": "YouTube Clone",
+          "score": 55,
+          "reason": "This project showcases frontend development skills with React, HTML, and CSS, focusing on UI/UX and responsive design. It's a standard beginner project. Similar to the 'Course Tracker', it could benefit from more detail on challenges or specific React concepts applied.",
+          "suggestions": [
+            "Detail specific React features used (e.g., hooks, context API, router).",
+            "Explain the responsive design challenges and solutions.",
+            "Provide a link to a live demo or GitHub repository."
+          ]
+        },
+        {
+          "project_name": "Problem Solving",
+          "score": 50,
+          "reason": "This section highlights strong dedication to Data Structures and Algorithms, which is critical for technical roles. Listing platforms and STL familiarity is good. However, it's less of a 'project' and more of a skill demonstration. It would be stronger if it included specific achievements (e.g., competitive programming ranks, number of LeetCode problems solved, types of problems mastered).",
+          "suggestions": [
+            "Reframe this as a 'DSA Proficiency' or 'Competitive Programming' section rather than a 'project'.",
+            "Quantify achievements, such as number of problems solved on LeetCode/CodeChef, highest contest rank, or specific topics mastered.",
+            "Provide a link to the profile on these platforms."
+          ]
+        }
+      ],
+      "experience": {
+        "score": 15,
+        "reason": "The candidate lists one 'Organizing Committee Member' role. While this demonstrates involvement and potential organizational skills, it provides no details on responsibilities, achievements, or any technical contributions. It is not a technical work experience.",
+        "suggestions": [
+          "Elaborate on the specific responsibilities and contributions in the 'Organizing Committee Member' role.",
+          "Quantify any impact or outcomes, e.g., 'managed logistics for X participants', 'contributed to promotion reaching Y students'.",
+          "Focus on transferable skills like teamwork, planning, or communication."
+        ]
+      },
+      "education": {
         "score": 90,
-        "reason": "This project showcases full-stack development with real-time capabilities (Socket.IO), robust authentication (JWT), and advanced backend practices (request validation, error handling, logging). The architecture and features demonstrate strong practical skills and a good understanding of system design.",
+        "reason": "Excellent academic performance (9.30 CGPA) at a reputable institution (Manipal Institute of Technology) in a highly relevant and specialized field (B.Tech in CS with AI & ML specialization). This is a strong foundation for a technical career.",
         "suggestions": [
-          "Quantify the project's scale or performance if possible (e.g., 'supported X concurrent users').",
-          "Add a link to the live demo or repository."
+          "While not explicitly available in the JSON, consider adding relevant coursework or academic projects once they are underway."
         ]
       },
-      {
-        "project_name": "Schedulix – University Course Registration Management System",
-        "score": 85,
-        "reason": "This project demonstrates strong database design and complex query/procedure implementation with Oracle Database. The full-stack approach with React and Express.js, combined with role-based access, shows a good grasp of enterprise application principles.",
+      "resume_quality": {
+        "score": 40,
+        "reason": "The resume lacks a professional summary, a crucial element for providing an immediate overview of the candidate's aspirations and qualifications. Many sections, especially certifications and experience, are missing critical details (dates, issuers, specific responsibilities). The absence of a location is also a minor formatting point. The project descriptions, while informative, could be more detailed and impactful with quantifiable results.",
         "suggestions": [
-          "Highlight any specific performance optimizations made for complex queries.",
-          "Add a link to the live demo or repository."
-        ]
-      },
-      {
-        "project_name": "JustTrackingMyCourses – Course Tracking Application",
-        "score": 80,
-        "reason": "A solid PERN stack application demonstrating CRUD operations, JWT authentication, and cloud database usage (Neon/PostgreSQL). It's a foundational project that reinforces core full-stack development skills.",
-        "suggestions": [
-          "Briefly mention any unique features or challenges overcome.",
-          "Add a link to the live demo or repository."
+          "Add a concise professional summary highlighting skills, aspirations, and career goals.",
+          "Complete all missing details for certifications (issuer, date) and experience (start/end dates, specific responsibilities).",
+          "Ensure consistent formatting and add a location.",
+          "Integrate quantifiable achievements throughout projects and experience."
         ]
       }
+    },
+    "ats_analysis": {
+      "ats_score": 75,
+      "keyword_coverage": {
+        "score": 88,
+        "assessment": "The resume has strong keyword coverage for foundational programming, web development (PERN stack), and data structures/algorithms. Keywords like C++, Python, JavaScript, React.js, Node.js, Express.js, PostgreSQL, Git, GitHub, Data Structures and Algorithms, Database Management Systems, Operating Systems, and Artificial Intelligence are present. However, given the 'AI & ML' specialization, there's a gap in specific AI/ML framework/library keywords.",
+        "missing_keywords": [
+          "Machine Learning",
+          "Deep Learning",
+          "TensorFlow",
+          "PyTorch",
+          "Scikit-learn",
+          "Numpy",
+          "Pandas",
+          "SQL (explicit mention beyond PostgreSQL)",
+          "Cloud (AWS, Azure, GCP)",
+          "API Design (beyond REST APIs)",
+          "Testing (Unit testing, Integration testing)",
+          "Docker",
+          "CI/CD"
+        ]
+      },
+      "formatting": {
+        "score": 70,
+        "assessment": "The structure is logical with clear sections for skills, education, experience, and projects. This generally translates well to ATS parsing. However, the lack of specific dates for certifications and the 'Organizing Committee' role, as well as the missing issuer for certifications, are points that could lead to incomplete data extraction by an ATS. The absence of a professional summary also means an ATS might struggle to create a quick, coherent snapshot."
+      },
+      "strengths": [
+        "Clear, standard section headings.",
+        "Good use of bullet points for project descriptions (implied from JSON array).",
+        "Relevant technical keywords are present and easily identifiable.",
+        "Consistent language and naming conventions for skills."
+      ],
+      "issues": [
+        "Missing professional summary.",
+        "Incomplete details for certifications (issuer, date) and experience (dates, detailed responsibilities).",
+        "No quantifiable achievements or metrics listed for projects or experience.",
+        "Lack of a defined location."
+      ],
+      "recommendations": [
+        "Add a professional summary using relevant keywords.",
+        "Ensure all dates (start/end) are present and clear for experience and certifications.",
+        "Provide specific issuers for all certifications.",
+        "Integrate action verbs and quantifiable results into project and experience descriptions.",
+        "Add a location for better ATS matching to regional jobs."
+      ]
+    },
+    "resume_improvements": [
+      {
+        "priority": "High",
+        "issue": "Missing Professional Summary",
+        "impact": "Lowers ATS score and immediate recruiter impression, as it fails to quickly convey the candidate's profile, skills, and career goals.",
+        "suggestion": "Add a concise professional summary (3-4 sentences) highlighting academic background, key technical skills (PERN stack, DSA, AI/ML interest), and career aspirations (e.g., 'seeking challenging internship opportunities')."
+      },
+      {
+        "priority": "High",
+        "issue": "Incomplete Certification and Experience Details",
+        "impact": "Reduces credibility and makes it difficult for ATS and recruiters to verify achievements and commitment. Misses crucial context for the listed items.",
+        "suggestion": "For certifications, add the issuer and completion date for each. For the 'Organizing Committee Member' role, specify the start and end dates and elaborate on specific responsibilities, contributions, and any transferable skills demonstrated."
+      },
+      {
+        "priority": "Medium",
+        "issue": "Lack of Quantifiable Achievements in Projects",
+        "impact": "Makes projects less impactful and harder for recruiters to gauge the scope, complexity, and candidate's contributions. Projects appear generic without metrics.",
+        "suggestion": "For each project, detail challenges faced, specific solutions implemented, and any quantifiable outcomes (e.g., 'reduced data fetch time by X%', 'handled Y concurrent users'). Provide GitHub links for all projects."
+      },
+      {
+        "priority": "Medium",
+        "issue": "Limited AI/ML Specific Skills/Projects",
+        "impact": "While the degree is in AI/ML, the skills and projects primarily focus on web development and DSA. This creates a disconnect with the stated academic specialization.",
+        "suggestion": "Start integrating AI/ML related skills (e.g., TensorFlow, PyTorch, Scikit-learn, specific ML algorithms) into the skills section, and if possible, develop a small project or add a relevant academic course project that showcases AI/ML application."
+      },
+      {
+        "priority": "Low",
+        "issue": "Missing Location",
+        "impact": "Can make it harder for location-specific job searches and may lead to ATS filtering out the resume for certain roles.",
+        "suggestion": "Add a specific location (City, State, Country) to the contact information."
+      }
     ],
-    "experience": {
-      "score": 70,
-      "reason": "The listed 'PHP & AI Developer Intern' role at Lee & Nee Softwares, with a start date in June 2026 and 'Present' as the end date, presents ambiguity regarding its current status. If it's an upcoming internship, its impact is lessened. If it's ongoing from Jun 2026 as per explicit interpretation, the description of responsibilities is strong, focusing on production-style backend, secure file storage, and AI-powered parsing. The ACM role shows initiative but is not technical experience. The score reflects strong descriptions but limited duration and clarity for the primary internship.",
-      "suggestions": [
-        "Clarify the status of the 'PHP & AI Developer Intern' role (e.g., 'Upcoming Internship' if not started, or ensure 'Present' is accurate for the current date).",
-        "Quantify achievements within the internship descriptions (e.g., 'improved processing time by X%', 'handled Y amount of data').",
-        "If the internship is completed, state the end date clearly. If upcoming, mention it is 'expected'."
+    "interview_questions": {
+      "technical": [
+        {
+          "question": "Explain the concept of an event loop in Node.js and how it handles asynchronous operations.",
+          "topic": "Node.js (Backend)",
+          "difficulty": "Medium",
+          "expected_focus": "Understanding of asynchronous programming, callback queue, microtask queue, and the non-blocking I/O model."
+        },
+        {
+          "question": "Describe the differences between controlled and uncontrolled components in React.js. When would you use each?",
+          "topic": "React.js (Frontend)",
+          "difficulty": "Medium",
+          "expected_focus": "Knowledge of state management, form handling, and best practices in React."
+        },
+        {
+          "question": "You've listed familiarity with STL. Can you explain the internal working of `std::unordered_map` and compare its time complexity with `std::map` for common operations?",
+          "topic": "Data Structures and Algorithms (C++)",
+          "difficulty": "Medium",
+          "expected_focus": "Understanding of hash tables, collision resolution, and Big O notation for data structures."
+        },
+        {
+          "question": "What is normalization in database design, and why is it important? Can you describe the first three normal forms?",
+          "topic": "Database Management Systems (PostgreSQL)",
+          "difficulty": "Medium",
+          "expected_focus": "Knowledge of relational database theory, data integrity, and avoiding anomalies."
+        },
+        {
+          "question": "Given a sorted array, write a Python function to find a pair of elements that sum up to a target value. Discuss the time and space complexity.",
+          "topic": "Algorithms (Python)",
+          "difficulty": "Easy-Medium",
+          "expected_focus": "Ability to apply two-pointer technique or hash set, and analyze algorithmic efficiency."
+        }
+      ],
+      "project_based": [
+        {
+          "question": "For your 'Course Tracker' project, walk me through the design of your REST APIs. How did you handle user authentication and authorization?",
+          "topic": "PERN Stack (Architecture & Security)",
+          "difficulty": "Medium",
+          "expected_focus": "API design principles, token-based authentication (e.g., JWT), and middleware implementation in Express.js."
+        },
+        {
+          "question": "In your 'YouTube Clone', you mentioned designing a responsive layout. What were the main challenges you faced in achieving responsiveness across different devices, and how did you address them?",
+          "topic": "React.js (Frontend & UI/UX)",
+          "difficulty": "Medium",
+          "expected_focus": "CSS Flexbox/Grid, media queries, handling different screen sizes, and component reusability."
+        },
+        {
+          "question": "Regarding the 'Course Tracker' database (PostgreSQL/Neon), how did you model the data? What tables did you create, and what relationships exist between them?",
+          "topic": "Database Design (PostgreSQL)",
+          "difficulty": "Medium",
+          "expected_focus": "Schema design, primary/foreign keys, one-to-many/many-to-many relationships, and basic SQL commands."
+        },
+        {
+          "question": "Can you elaborate on a specific challenging problem you solved on LeetCode or CodeChef? Describe the problem, your initial approach, and how you arrived at an optimized solution.",
+          "topic": "Problem Solving (DSA Application)",
+          "difficulty": "Hard",
+          "expected_focus": "Problem decomposition, algorithmic thinking, identifying data structures, and optimizing for time/space complexity."
+        },
+        {
+          "question": "What improvements or new features would you consider adding to your 'Course Tracker' if you were to continue developing it?",
+          "topic": "Project Expansion & Vision",
+          "difficulty": "Easy-Medium",
+          "expected_focus": "Creativity, understanding of user needs, future-proofing, and ability to think beyond current implementation."
+        }
+      ],
+      "behavioral": [
+        {
+          "question": "As a first-year student, how do you manage your time effectively between academics, personal projects, and extracurricular activities like being an 'Organizing Committee Member'?",
+          "topic": "Time Management & Prioritization",
+          "difficulty": "Easy",
+          "expected_focus": "Organizational skills, ability to balance multiple commitments, and self-discipline."
+        },
+        {
+          "question": "Tell me about a time you encountered a significant technical challenge while working on one of your projects or bootcamps. How did you approach it, and what was the outcome?",
+          "topic": "Problem Solving & Resilience",
+          "difficulty": "Medium",
+          "expected_focus": "Troubleshooting skills, resourcefulness, perseverance, and learning from failures."
+        },
+        {
+          "question": "You are pursuing a B.Tech in Computer Science (AI & ML). What specifically excites you about this field, and how do you plan to deepen your knowledge in AI/ML going forward?",
+          "topic": "Motivation & Career Goals",
+          "difficulty": "Easy",
+          "expected_focus": "Passion for the field, self-directed learning, and future plans for skill development."
+        },
+        {
+          "question": "Describe a situation where you had to learn a new technology or concept very quickly to complete a task or project. What was your learning process, and how effective was it?",
+          "topic": "Learning Agility & Adaptability",
+          "difficulty": "Medium",
+          "expected_focus": "Ability to pick up new skills rapidly, methods of learning, and applying new knowledge."
+        },
+        {
+          "question": "Given your role as an 'Organizing Committee Member', describe a situation where you had to collaborate with others to achieve a common goal. What was your role, and what did you learn about teamwork?",
+          "topic": "Teamwork & Collaboration",
+          "difficulty": "Medium",
+          "expected_focus": "Interpersonal skills, contribution to a team, conflict resolution, and understanding of group dynamics."
+        }
       ]
     },
-    "education": {
-      "score": 90,
-      "reason": "Excellent academic performance with a 9.36 CGPA from a reputable institution (Manipal Institute of Technology). The specialized field of Computer Science – Artificial Intelligence & Machine Learning is highly relevant to current industry trends. The inclusion of AISSCE also provides a complete academic picture.",
-      "suggestions": [
-        "Consider adding any academic awards, scholarships, or distinctions."
+    "career_recommendation": {
+      "best_fit_roles": [
+        "Junior Web Developer Intern (Full Stack)",
+        "Frontend Developer Intern",
+        "Backend Developer Intern",
+        "Software Development Engineer Intern (General)",
+        "Competitive Programmer/DSA roles"
+      ],
+      "reason": "Ananya demonstrates strong foundational technical skills in web development (PERN stack), C++, Python, JavaScript, and Data Structures and Algorithms. Her excellent academic record and proactive self-learning approach make her highly suitable for internship positions where she can further develop these skills in a professional environment. Her AI/ML specialization indicates future potential for related roles, but her current practical skills align best with web development and general software engineering internships.",
+      "confidence": "High",
+      "alternative_roles": [
+        "AI/ML Intern (requires more specialized project experience)",
+        "Data Analyst Intern (requires development of data specific tools/libraries)"
       ]
     },
-    "resume_quality": {
-      "score": 65,
-      "reason": "While the resume is structured well with clear sections and detailed project descriptions, it lacks crucial elements such as a professional summary/objective, specific location, and a portfolio link. The certifications section is also incomplete with missing issuer and dates, and the internship dates are ambiguous. These omissions reduce overall completeness and professional presentation.",
-      "suggestions": [
-        "Add a concise professional summary highlighting career goals and key strengths.",
-        "Specify current location.",
-        "Provide a portfolio link to showcase projects visually.",
-        "Complete certification details with issuer and dates.",
-        "Clarify internship dates and status.",
-        "Add a 'Hobbies & Interests' section to show personality, if desired."
+    "skill_gap_analysis": {
+      "current_strengths": [
+        "Foundational Programming (C, C++, Python, JavaScript)",
+        "Data Structures and Algorithms (with C++ and STL)",
+        "Full-stack Web Development (PERN stack: PostgreSQL, Express.js, React.js, Node.js)",
+        "Basic Database Management Systems",
+        "Version Control (Git, GitHub)",
+        "Problem Solving"
+      ],
+      "missing_skills": [
+        "Cloud Platforms (AWS, Azure, GCP)",
+        "DevOps practices (CI/CD, Docker, Kubernetes)",
+        "Advanced AI/ML frameworks and libraries (TensorFlow, PyTorch, scikit-learn, NumPy, Pandas, OpenCV)",
+        "Testing methodologies (Unit, Integration, End-to-End Testing)",
+        "System Design (Scalability, Reliability, Distributed Systems)",
+        "Authentication/Authorization best practices (beyond basic implementation)",
+        "Advanced JavaScript concepts and modern React patterns",
+        "Performance optimization techniques for web applications"
+      ],
+      "recommended_learning": [
+        {
+          "topic": "Cloud Fundamentals (AWS/Azure/GCP)",
+          "reason": "Cloud proficiency is a highly demanded skill across almost all tech roles, essential for deploying and managing applications at scale."
+        },
+        {
+          "topic": "AI/ML Frameworks and Libraries (TensorFlow, PyTorch, Scikit-learn)",
+          "reason": "Given her B.Tech specialization in AI & ML, gaining hands-on experience with these frameworks is crucial to align her practical skills with her academic focus."
+        },
+        {
+          "topic": "DevOps Basics (Docker, CI/CD)",
+          "reason": "Understanding deployment pipelines and containerization is vital for modern software development and will make projects more robust and deployable."
+        },
+        {
+          "topic": "Advanced Data Structures & Algorithms and Competitive Programming",
+          "reason": "Continuing to sharpen DSA skills is critical for acing technical interviews and solving complex problems efficiently."
+        },
+        {
+          "topic": "System Design Fundamentals",
+          "reason": "As she progresses, understanding how to design scalable and robust systems will be invaluable for mid-level and senior roles."
+        }
       ]
+    },
+    "learning_roadmap": [
+      {
+        "step": 1,
+        "topic": "Deepen AI/ML Fundamentals & Practical Application",
+        "reason": "To align practical skills with B.Tech specialization. Focus on linear algebra, calculus, statistics for ML, then implement projects using Scikit-learn, NumPy, and Pandas. Transition to deep learning with TensorFlow/PyTorch through specific small projects (e.g., image classification, NLP basics)."
+      },
+      {
+        "step": 2,
+        "topic": "Cloud Platform Basics (e.g., AWS Certified Cloud Practitioner)",
+        "reason": "Essential for understanding deployment, hosting, and managing applications in a real-world environment. Focus on core services like EC2, S3, RDS, Lambda, API Gateway."
+      },
+      {
+        "step": 3,
+        "topic": "Enhance Full Stack Development & Deployment",
+        "reason": "Build more complex, fully deployed PERN stack applications using cloud services (e.g., hosting React on S3/CloudFront, Node.js on EC2/Lambda, PostgreSQL on RDS). Incorporate user testing, logging, and basic monitoring. Implement Docker for containerization."
+      },
+      {
+        "step": 4,
+        "topic": "Advanced DSA & Competitive Programming",
+        "reason": "Continue daily practice on platforms like LeetCode and participate in contests to master advanced algorithms and data structures crucial for interviews and problem-solving."
+      },
+      {
+        "step": 5,
+        "topic": "Explore System Design and Software Architecture Principles",
+        "reason": "Start learning about how to build scalable, fault-tolerant, and maintainable systems. Read articles and case studies on microservices, load balancing, caching, and distributed databases."
+      }
+    ],
+    "market_readiness": {
+      "internship_readiness": "High",
+      "entry_level_readiness": "Not Ready",
+      "reason": "Ananya is highly ready for internship roles due to her strong academic record, foundational technical skills in web development and DSA, and proactive self-learning. However, she is not yet ready for entry-level full-time positions as she lacks professional work experience, substantial project complexity/deployment, and deeper specialization in either full-stack development or AI/ML."
     }
-  },
-  "ats_analysis": {
-    "ats_score": 75,
-    "keyword_coverage": {
-      "score": 88,
-      "assessment": "The resume has strong keyword coverage for full-stack development, backend development, and emerging AI/ML roles. It includes specific languages (Python, JavaScript, C++), frameworks (Node.js, NestJS, React.js, FastAPI), databases (PostgreSQL, Oracle), and tools (Git, GitHub, Postman). Keywords like 'REST APIs', 'JWT Authentication', 'Client-Server Architecture', 'Data Structures & Algorithms', 'LLM-based extraction' are well-represented.",
-      "missing_keywords": [
-        "Docker",
-        "Kubernetes",
-        "AWS/GCP/Azure (specific services)",
-        "CI/CD (e.g., Jenkins, GitLab CI)",
-        "Unit Testing / Integration Testing",
-        "Agile/Scrum"
-      ]
-    },
-    "formatting": {
-      "score": 80,
-      "assessment": "Based on the JSON structure, the resume appears to be well-organized into logical sections. The use of bullet points for descriptions is effective for readability. However, the lack of a professional summary and specific location, along with incomplete certification details and potentially ambiguous dates, could slightly impact ATS parsing for certain fields."
-    },
-    "strengths": [
-      "Clear section headings",
-      "Bulleted lists for experiences and projects",
-      "Specific technology mentions are well categorized",
-      "Good use of action verbs in descriptions"
-    ],
-    "issues": [
-      "Missing professional summary section",
-      "Ambiguous internship dates ('Jun 2026 - Present')",
-      "Incomplete information for certifications (issuer, date)",
-      "Location is null"
-    ],
-    "recommendations": [
-      "Add a professional summary at the top to give an overview.",
-      "Ensure all date ranges are clear and unambiguous for experience and certifications.",
-      "Fill in all available fields, especially for contact information and certifications.",
-      "Consider optimizing the skill section to group related technologies for better readability."
-    ]
-  },
-  "resume_improvements": [
-    {
-      "priority": "High",
-      "issue": "Missing Professional Summary and ambiguous internship dates.",
-      "impact": "Reduces immediate understanding of career goals and current status, potentially leading to ATS filtering or reviewer confusion.",
-      "suggestion": "Add a concise professional summary (3-4 sentences) at the top, outlining career aspirations and key qualifications. Clearly state the status of the 'PHP & AI Developer Intern' role (e.g., 'Expected Internship' or 'Ongoing Internship starting June 2026')."
-    },
-    {
-      "priority": "High",
-      "issue": "Lack of quantifiable achievements and metrics.",
-      "impact": "Makes it harder for recruiters to assess the real-world impact and scale of contributions.",
-      "suggestion": "Quantify achievements in project and internship descriptions wherever possible. For example, 'Engineered production-style backend modules with X% efficiency gain' or 'Developed resume parsing pipeline processing Y resumes per hour'."
-    },
-    {
-      "priority": "Medium",
-      "issue": "Incomplete Certifications section.",
-      "impact": "Reduces the credibility and value of listed certifications.",
-      "suggestion": "For each certification, provide the issuer and the date of completion to make them verifiable and impactful."
-    },
-    {
-      "priority": "Medium",
-      "issue": "Missing cloud, DevOps, and testing skills.",
-      "impact": "These are highly sought-after skills for both internship and entry-level roles, and their absence can be a competitive disadvantage.",
-      "suggestion": "Actively learn and integrate cloud services (e.g., AWS EC2, S3, RDS), containerization (Docker), or basic CI/CD principles into a project, then add them to the skills section. Mention any experience with testing frameworks."
-    },
-    {
-      "priority": "Low",
-      "issue": "Absence of a personal portfolio link.",
-      "impact": "Limits the ability to showcase projects visually or provide deeper context beyond the resume.",
-      "suggestion": "Create a simple portfolio website (even a GitHub Pages site) to link to project repositories, demos, and provide more detailed descriptions. Include this link in the contact information."
-    }
-  ],
-  "interview_questions": {
-    "technical": [
-      {
-        "question": "Explain the architectural choices you made for the 'Galax-O' real-time chat application, particularly regarding the use of Socket.IO versus traditional REST APIs for messaging. How did you handle persistent chat history?",
-        "topic": "System Design, Real-time Communication",
-        "difficulty": "Medium",
-        "expected_focus": "Understanding of WebSocket vs. HTTP, state management, database schema for chat history, and scalability considerations."
-      },
-      {
-        "question": "You've worked with both NestJS/TypeORM and Node.js/Express.js. What are the key differences, advantages, and disadvantages of using a framework like NestJS with an ORM compared to a more minimalist setup with Express.js?",
-        "topic": "Backend Frameworks, ORM vs. Raw SQL",
-        "difficulty": "Medium",
-        "expected_focus": "Knowledge of MVC/module patterns, dependency injection, type safety, developer experience, and performance implications."
-      },
-      {
-        "question": "Describe your experience with 'LLM-based extraction' in your current internship. What libraries or techniques did you use, and what challenges did you face when converting unstructured resume text into structured JSON?",
-        "topic": "AI/ML, NLP, Data Extraction",
-        "difficulty": "Medium",
-        "expected_focus": "Understanding of LLM capabilities, prompt engineering, parsing strategies, error handling for inconsistent data, and the role of PyMuPDF."
-      },
-      {
-        "question": "Your projects involve JWT authentication. Can you explain the complete flow of JWT authentication from user login to accessing a protected resource, including how tokens are secured and refreshed?",
-        "topic": "Security, Authentication",
-        "difficulty": "Medium",
-        "expected_focus": "Detailed understanding of token generation, storage (client/server), validation, refresh tokens, and common security vulnerabilities."
-      },
-      {
-        "question": "Given your background in Data Structures & Algorithms, if you were to optimize a search function in a large database, what data structures would you consider at the application level before even thinking about database indexing, and why?",
-        "topic": "Data Structures & Algorithms, Database Optimization",
-        "difficulty": "Hard",
-        "expected_focus": "Application of DS&A knowledge to real-world problems, understanding of time complexity, and practical trade-offs."
-      }
-    ],
-    "project_based": [
-      {
-        "question": "For 'Schedulix', you mentioned automated schedule conflict detection using stored procedures and triggers. Can you elaborate on the logic and complexity involved in designing and implementing those database components?",
-        "topic": "Database Design, PL/SQL",
-        "difficulty": "Medium",
-        "expected_focus": "Understanding of relational database integrity, event-driven database logic, and conflict resolution algorithms."
-      },
-      {
-        "question": "In 'Galax-O', you implemented online/offline presence detection. How did you manage the state of user presence across multiple clients, and what were the considerations for scaling this feature?",
-        "topic": "Real-time Systems, State Management",
-        "difficulty": "Medium",
-        "expected_focus": "Knowledge of WebSocket events, server-side state management, and potential use of distributed systems for scaling presence."
-      },
-      {
-        "question": "You used MinIO for secure file storage in your internship. Why did you choose MinIO over other object storage solutions, and how did you integrate it into your NestJS backend?",
-        "topic": "Object Storage, Backend Integration",
-        "difficulty": "Medium",
-        "expected_focus": "Understanding of MinIO's features (S3 compatibility), advantages for local/on-premise, and the implementation details of file upload/download via NestJS."
-      },
-      {
-        "question": "The 'Schedulix' project used Oracle Database 21c. What specific features or challenges did you encounter with Oracle that might differ from your experience with PostgreSQL in other projects?",
-        "topic": "Database Comparison, Specific Database Features",
-        "difficulty": "Medium",
-        "expected_focus": "Understanding of database system differences, SQL dialects, and any specific Oracle-only features utilized."
-      },
-      {
-        "question": "Describe a technical challenge you faced while building any of your full-stack projects and how you approached solving it. What did you learn from that experience?",
-        "topic": "Problem Solving, Technical Challenges",
-        "difficulty": "Medium",
-        "expected_focus": "Demonstration of critical thinking, debugging skills, and ability to learn from difficulties."
-      }
-    ],
-    "behavioral": [
-      {
-        "question": "Tell me about a time you had to learn a new technology quickly for a project or your internship. How did you approach learning it, and what was the outcome?",
-        "topic": "Adaptability, Learning Agility",
-        "difficulty": "Easy",
-        "expected_focus": "Demonstration of self-learning capabilities and ability to apply new knowledge effectively."
-      },
-      {
-        "question": "As an Organizing Committee Member for TechTatva 2025, describe a situation where you encountered an unexpected problem. How did you handle it, and what was the result?",
-        "topic": "Problem Solving, Teamwork, Event Management",
-        "difficulty": "Medium",
-        "expected_focus": "Ability to think on their feet, collaborate, and ensure successful outcomes in a non-technical setting."
-      },
-      {
-        "question": "You have a strong academic record. How do you balance your academic responsibilities with your project work and internship commitments?",
-        "topic": "Time Management, Prioritization",
-        "difficulty": "Easy",
-        "expected_focus": "Demonstration of organizational skills and ability to manage multiple commitments effectively."
-      },
-      {
-        "question": "Describe a situation where you received constructive feedback on your code or project design. How did you respond to it, and what changes did you make?",
-        "topic": "Openness to Feedback, Improvement",
-        "difficulty": "Medium",
-        "expected_focus": "Ability to take criticism positively and iterate on work based on feedback."
-      },
-      {
-        "question": "What are your career aspirations after completing your B.Tech, especially considering your interest in both full-stack development and AI/ML?",
-        "topic": "Career Goals, Motivation",
-        "difficulty": "Easy",
-        "expected_focus": "Understanding of their long-term vision, self-awareness, and how their current activities align with future goals."
-      }
-    ]
-  },
-  "career_recommendation": {
-    "best_fit_roles": [
-      "Backend Developer Intern",
-      "Full Stack Developer Intern",
-      "AI/ML Engineer Intern (with backend focus)"
-    ],
-    "reason": "Ananya's strong proficiency in NestJS, Node.js, databases like PostgreSQL, and API development, combined with solid project experience, makes her an excellent fit for Backend and Full Stack Developer Intern roles. Her B.Tech specialization in AI/ML and specific project experience with LLM-based extraction also position her well for AI/ML Engineer Intern roles, particularly those requiring strong backend integration.",
-    "confidence": "High",
-    "alternative_roles": [
-      "Software Development Engineer Intern",
-      "Database Developer Intern",
-      "DevOps Intern (if cloud/containerization skills are developed)"
-    ]
-  },
-  "skill_gap_analysis": {
-    "current_strengths": [
-      "Full-stack web development (React, Node.js, NestJS, Express.js)",
-      "Database management (PostgreSQL, Oracle, SQL, PL/SQL)",
-      "API development (REST APIs)",
-      "Authentication and Security (JWT)",
-      "Real-time communication (Socket.IO)",
-      "Data Structures & Algorithms",
-      "AI/ML concepts (LLM-based extraction, FastAPI, PyMuPDF)",
-      "Version Control (Git, GitHub)"
-    ],
-    "missing_skills": [
-      "Cloud computing platforms (AWS, Azure, GCP)",
-      "Containerization (Docker, Kubernetes)",
-      "CI/CD pipelines",
-      "Testing frameworks (Unit, Integration testing)",
-      "Advanced system design patterns (Microservices, Event-driven architectures)",
-      "Front-end state management libraries (Redux, Zustand, etc., beyond basic React context)",
-      "Infrastructure as Code (Terraform, CloudFormation)"
-    ],
-    "recommended_learning": [
-      {
-        "topic": "Cloud Computing Fundamentals (e.g., AWS Certified Cloud Practitioner)",
-        "reason": "Cloud proficiency is almost a mandatory skill for modern development roles, enabling deployment, scaling, and management of applications."
-      },
-      {
-        "topic": "Docker and Containerization",
-        "reason": "Essential for consistent development environments, deployment, and scalability, aligning well with existing backend skills."
-      },
-      {
-        "topic": "CI/CD Pipelines (e.g., GitHub Actions, Jenkins)",
-        "reason": "Automating software delivery is crucial for efficient development workflows and will make projects more production-ready."
-      },
-      {
-        "topic": "Testing Methodologies and Frameworks (e.g., Jest, Supertest, React Testing Library)",
-        "reason": "Ensures code quality, reliability, and maintainability, a critical skill for professional development."
-      },
-      {
-        "topic": "Advanced Front-end State Management (e.g., Redux, Zustand)",
-        "reason": "For building more complex and scalable React applications, which complements current React.js skills."
-      },
-      {
-        "topic": "Introduction to Microservices Architecture",
-        "reason": "As projects become more complex, understanding how to break them into smaller, manageable services will be highly beneficial."
-      }
-    ]
-  },
-  "learning_roadmap": [
-    {
-      "step": 1,
-      "topic": "Deepen understanding of a specific Cloud Platform (e.g., AWS)",
-      "reason": "Focus on compute (EC2, Lambda), database (RDS), and storage (S3) services to learn deployment and management in a cloud environment. This directly addresses a major skill gap."
-    },
-    {
-      "step": 2,
-      "topic": "Master Docker for containerization",
-      "reason": "Learn to containerize existing backend and frontend applications. This improves deployment consistency and sets the stage for orchestration."
-    },
-    {
-      "step": 3,
-      "topic": "Implement CI/CD for a project using GitHub Actions",
-      "reason": "Automate testing and deployment for one of the existing projects. This is a practical step towards adopting DevOps practices."
-    },
-    {
-      "step": 4,
-      "topic": "Learn Unit and Integration Testing for both backend (NestJS/Express) and frontend (React)",
-      "reason": "Integrate testing into all new and existing projects to ensure code quality and robustness."
-    },
-    {
-      "step": 5,
-      "topic": "Explore advanced AI/ML topics relevant to Computer Science - AI/ML specialization",
-      "reason": "Dive deeper into specific areas of AI/ML like advanced NLP techniques, computer vision, or machine learning operations (MLOps), aligning with academic focus and potential career path."
-    }
-  ],
-  "market_readiness": {
-    "internship_readiness": "High",
-    "entry_level_readiness": "Medium",
-    "reason": "For internships, Ananya demonstrates strong projects, an excellent CGPA, and relevant foundational and modern technical skills, making her highly competitive. Her practical experience with full-stack and emerging AI tools is impressive for someone at her stage. For entry-level roles, while her project work is substantial, the limited duration of professional experience and the absence of certain industry-standard skills (like cloud, Docker, CI/CD, and extensive testing experience) currently place her in the medium readiness category. With focused learning in these areas, she could quickly transition to high entry-level readiness."
   }
 }

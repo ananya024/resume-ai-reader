@@ -50,6 +50,6 @@ def parse_resume(text:str, link:list[str]):
         +link_text)
     return generate_json(prompt)
 
-def analyze_json(parsed_resume: dict):
-    prompt = ANALYZE_PROMPT + json.dumps(parsed_resume, indent=2)
+def analyze_json(parsed: dict):
+    prompt = ANALYZE_PROMPT + json.dumps(parsed, indent=2)
     return generate_json(prompt)
