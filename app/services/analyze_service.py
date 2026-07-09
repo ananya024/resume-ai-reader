@@ -6,7 +6,7 @@ from app.services.SAMPLE_RESPONSE import SAMPLE_RESPONSE
 
 def analyze_resume(path:str):
     text,links= read_pdf(path)
-    return SAMPLE_RESPONSE
+    # return SAMPLE_RESPONSE
     parsed= parse_resume(text, links)
 
     if "error" in parsed:
