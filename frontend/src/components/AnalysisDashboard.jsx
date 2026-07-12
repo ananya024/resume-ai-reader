@@ -3,57 +3,53 @@
 import "../App.css";
 import "../styles/Dashboard.css";
 import "../styles/AnalysisDashboard.css";
-import "../styles/Card.css"
-import CandidateSummaryCard from "./analysis/CandidateSummaryCard";
-import ResumeScoreCard from "./analysis/ResumeScoreCard";
-import ATSAnalysisCard from "./analysis/ATSAnalysisCard";
-import ResumeImprovementsCard from "./analysis/ResumeImprovementsCard";
-import CareerRecommendationCard from "./analysis/CareerRecommendationCard";
+import "../styles/Card.css";
+import OverallExplanationCard from "./analysis/OverallExplanationCard";
 import SkillGapCard from "./analysis/SkillGapCard";
-import LearningRoadmapCard from "./analysis/LearningRoadmapCard";
-import InterviewQuestionsCard from "./analysis/InterviewQuestionsCard";
+import ProjectMatcherCard from "./analysis/ProjectMatcherCard";
+import ExperienceMatchCard from "./analysis/ExperienceMatchCard";
+import EducationMatchCard from "./analysis/EducationMatchCard";
 
-function AnalysisDashboard({analysis}){
-    if(!analysis)
-        return null;
-    return (<>
-        <div>
-            <p className="file-name">Resume Analysis</p>
-        </div>
-        <div className="dashboard">
-            <CandidateSummaryCard
-                candidate_summary={analysis.candidate_summary}
-            />
+function AnalysisDashboard({ analysis }) {
+    if (!analysis) return null;
 
-            <ATSAnalysisCard
-                ats_analysis={analysis.ats_analysis}
-            />
+    return (
+        <>
+            <div>
+                <p className="file-name" style={{ fontSize: "1.25rem", color: "#4a5568", fontWeight: "bold" }}>
+                    ATS Match & Analysis Dashboard
+                </p>
+            </div>
+            
+            <div className="dashboard">
+                {/* 1. Overall Score & Summary Explanation Card */}
+                <OverallExplanationCard 
+                    overall_score={analysis.overall_score} 
+                    overall_explanation={analysis.overall_explanation} 
+                />
 
-            <CareerRecommendationCard
-                recommendation={analysis.career_recommendation}
-            />
+                {/* 2. Skills Match & Category Propagation Card */}
+                <SkillGapCard 
+                    skills={analysis.skills} 
+                />
 
-            <SkillGapCard
-                skill_gap={analysis.skill_gap_analysis}
-            />
+                {/* 3. Project to JD Responsibility Matcher Card */}
+                <ProjectMatcherCard 
+                    projects={analysis.projects} 
+                />
 
-            <LearningRoadmapCard
-                roadmap={analysis.learning_roadmap}
-            />
+                {/* 4. Experience Years Match Card */}
+                <ExperienceMatchCard 
+                    experience={analysis.experience} 
+                />
 
-            <InterviewQuestionsCard
-                questions={analysis.interview_questions}
-            />
-
-            <ResumeScoreCard
-                resume_score={analysis.resume_score}
-            />
-
-            <ResumeImprovementsCard
-                improvements={analysis.resume_improvements}
-            />
-        </div>
-    </>)
+                {/* 5. Education Level & Field Match Card */}
+                <EducationMatchCard 
+                    education={analysis.education} 
+                />
+            </div>
+        </>
+    );
 }
 
 export default AnalysisDashboard;

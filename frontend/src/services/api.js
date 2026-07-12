@@ -7,9 +7,10 @@ const api= axios.create({
 })
 export default api;
 
-export const analyseResume = async(file)=> {
+export const analyseResume = async(file, filejd)=> {
     const formData = new FormData();
     formData.append("file", file);
-    const response =await api.post("/analyze", formData);
+    formData.append("filejd", filejd);
+    const response = await api.post("/analyze", formData);
     return response.data;
 }

@@ -1,0 +1,591 @@
+================================================================================
+PROJECT EXPLANATION: AI RESUME ATS ANALYZER
+================================================================================
+
+This document provides a comprehensive, production-grade explanation of the AI Resume ATS Analyzer codebase. It covers the architectural design, nlp components, backend services, API interfaces, frontend components, and algorithm implementations.
+
+================================================================================
+SECTION 1 — PROJECT OVERVIEW
+================================================================================
+
+1. WHAT THE PROJECT DOES:
+The AI Resume ATS Analyzer is a software application that compares a candidate's Resume (in PDF format) against a Job Description (JD) (also in PDF format) to evaluate their alignment. It calculates a matching score, performs gap analysis, identifies matching strengths and missing keywords, assesses project alignment, compares experience years, and verifies educational qualifications.
+
+2. OVERALL OBJECTIVE:
+The objective is to provide recruitment teams and applicants with a highly explainable, transparent, and accurate applicant tracking tool. The system avoids relying solely on LLM extraction for skills to prevent hallucinated skills, and instead utilizes a hybrid matching system. It runs local NLP regex matching, exact token comparison, and hierarchical knowledge graph ontology matching, while reserving the LLM (Gemini) solely for reasoning-heavy tasks such as extracting experience/education requirements and writing a final match summary.
+
+3. INPUT:
+- Resume PDF: A PDF file containing the candidate's career details, education, experience, skills, and projects.
+- Job Description (JD) PDF: A PDF file specifying the role's requirements, responsibilities, required experience, and desired education.
+
+4. OUTPUT:
+A detailed structured JSON payload returned by the FastAPI backend, which is rendered dynamically in a React dashboard. The JSON specifies:
+- Overall score and natural language explanation.
+- Technical skills gap analysis (matched skills, missing skills, extra skills, and hierarchical categories matched).
+- Project alignment details (itemized project matches to JD responsibilities, similarity scores, missing themes).
+- Experience evaluation (resume years, required years, entry-level indicators, match status, and reasoning).
+- Education evaluation (resume degree/field details, required degree, match status, and reasoning).
+
+5. WHY NLP IS USED:
+NLP (Natural Language Processing) is used to parse, clean, segment, and tokenize unstructured text within the PDFs. Since resumes and JDs vary widely in format, NLP enables us to recognize sections (e.g. education, skills) and extract discrete entities (e.g. specific tools like "Docker" or skills like "Software Engineering") reliably without formatting constraints.
+
+6. WHY GEMINI IS USED:
+Large Language Models (LLMs) are exceptionally good at semantic reasoning and unstructured text summarization, but weak at strict keyword checks where they tend to hallucinate. In this project, Gemini is used strictly for:
+- Reading the Job Description to extract the required years of experience, minimum education, and list of responsibilities.
+- Summarizing the final matching score and section contributions into a cohesive, professional 2-3 sentence paragraph.
+
+7. WHY EMBEDDINGS ARE USED:
+Embeddings convert words, phrases, or paragraphs into dense vector representations in a high-dimensional space (e.g., 384 dimensions). This captures the semantic meaning of the text. For example, "REST API" and "web services" might not share exact letters, but their vectors lie close to each other, allowing semantic similarity matching when exact matches fail.
+
+8. WHY FASTAPI:
+FastAPI is a modern, high-performance web framework for building APIs with Python. It is chosen for its:
+- High speed (on par with NodeJS/Go) utilizing async/await.
+- Automatic interactive documentation (Swagger UI).
+- Inherent support for multipart file uploads.
+- Python ecosystem integration (crucial for loading Machine Learning models).
+
+9. WHY REACT:
+React is a frontend library used to build interactive, fast single-page applications. It is selected for its component-based architecture, efficient state management, and declarative UI rendering, enabling us to build a dashboard where developers or recruiters can visually inspect candidate scores.
+
+10. WHY SENTENCE TRANSFORMERS:
+Sentence Transformers is a library used to generate high-quality embeddings for sentences, paragraphs, or short texts. We utilize the 'all-MiniLM-L6-v2' model because it is lightweight, fast, operates locally in the environment, and is optimized for semantic search and cosine similarity.
+
+11. WHY COSINE SIMILARITY:
+Cosine similarity measures the cosine of the angle between two vectors in a high-dimensional space. It determines how similar two pieces of text are, regardless of length. It returns a value between -1.0 and 1.0 (with 1.0 being identical), which is converted to a percentage match.
+
+--------------------------------------------------------------------------------
+ARCHITECTURE OVERVIEW:
+--------------------------------------------------------------------------------
+
+The application is structured into a classic client-server model:
+1. CLIENT (React App): Allows the user to select and upload the Resume and JD PDFs, sends them via Multipart Form Data using Axios, displays a loading state, and parses the detailed JSON response into visual component cards.
+2. SERVER (FastAPI Backend): Exposes endpoints (`/analyze`), reads PDF streams using PyMuPDF (fitz), segments the text into sections, runs local NLP matchers (regex, normalizer, ontology, inference, similarity), queries Gemini for JD requirements, and calculates the overall score.
+
+================================================================================
+SECTION 2 — COMPLETE PIPELINE
+================================================================================
+
+RESUME PROCESSING PIPELINE:
+--------------------------
+Resume PDF
+   │
+   ▼
+PDF Reader (pymupdf / fitz) ──► Extracts raw text + hyperlinks
+   │
+   ▼
+Section Extractor ──► Splits text into sections (skills, projects, education, experience)
+   │
+   ▼
+Skill Extractor ──► Runs custom regex on Skills Section using ALL_SKILLS dictionary
+   │
+   ▼
+Skill Inference ──► Scans Project Section and infers implicit skills (e.g. React -> Frontend)
+   │
+   ▼
+Union of Skills ──► Combines explicit and inferred skills
+   │
+   ▼
+Skill Normalizer ──► Normalizes all skill names to canonical forms (e.g. JS -> JavaScript)
+   │
+   ▼
+Concept Matcher ──► matches resume skills to JD skills (Exact First ──► Semantic Later)
+
+JOB DESCRIPTION PROCESSING PIPELINE:
+-----------------------------------
+JD PDF
+   │
+   ▼
+PDF Reader (pymupdf / fitz) ──► Extracts raw text
+   │
+   ├─────────────────────────────────────────────────┐
+   ▼                                                 ▼
+Skill Extractor (Local NLP)               Gemini Extraction
+   │                                                 │
+   ▼                                                 ▼
+Extracts skills from raw text             Extracts:
+   │                                      - required_years
+   ▼                                      - education_required
+Skill Normalizer                          - responsibilities (list)
+   │                                                 │
+   └────────────────────────┬────────────────────────┘
+                            ▼
+                    Concept Matcher (Skills Match)
+                    Project Matcher (Projects vs Responsibilities)
+                    Education Matcher (Degree & Field Match)
+                    Experience Matcher (Entry-level Normalization)
+                            │
+                            ▼
+                    Semantic Reasoner ──► Combines scores & calls Gemini for final summary
+                            │
+                            ▼
+                    JSON API Response ──► React Dashboard UI
+
+================================================================================
+SECTION 3 — FOLDER STRUCTURE
+================================================================================
+
+app/
+├── api/
+│   └── resume.py
+│       Exposes the REST API router and endpoints. It receives the uploaded PDF files, 
+│       saves them temporarily in the `uploads/` directory, and invokes the analyze service.
+│
+├── prompts/
+│   ├── jd_extract.py
+│   │   Contains the EXTRACT_PROMPT string used to instruct Gemini on how to extract 
+│   │   experience_required, education_required, and responsibilities.
+│   └── (other prompts)
+│       Contains prompts for resume parsing and analysis, preserved for architectural integrity.
+│
+├── services/
+│   ├── main.py
+│   │   The main FastAPI entrypoint. Sets up CORS middleware and includes the resume router.
+│   │
+│   ├── pdf_reader.py
+│   │   Contains the PDF parsing utility to extract text and links from PDF pages.
+│   │
+│   ├── gemini_service.py
+│   │   Initializes the Google GenAI Client and manages requests to Gemini models.
+│   │
+│   └── nlp/
+│       ├── extractor.py
+│       │   Houses the canonical ALL_SKILLS set and custom boundary-aware skill extraction function.
+│       │
+│       ├── skill_normalizer.py
+│       │   Exposes normalizations mappings and functions (e.g. Node -> Node.js).
+│       │
+│       ├── ontology.py
+│       │   Defines categories, children, and parent propagation logic.
+│       │
+│       ├── skill_inference.py
+│       │   Defines inference rules to augment resume skills from project descriptions.
+│       │
+│       ├── project_matcher.py
+│       │   Splits projects and responsibilities, computes the embedding similarity matrix.
+│       │
+│       ├── education_matcher.py
+│       │   Performs degree rank comparisons and field of study containment checks.
+│       │
+│       ├── experience_matcher.py
+│       │   Compares experience years, handling entry-level indicator terms.
+│       │
+│       ├── concept_matcher.py
+│       │   Orchestrates exact matching, semantic similarity matching, and ontology evaluations.
+│       │
+│       ├── semantic_reasoner.py
+│       │   Calculates dimension contributions and calls Gemini for final score explanations.
+│       │
+│       ├── embedding_service.py
+│       │   Loads SentenceTransformer model locally and generates text vector embeddings.
+│       │
+│       ├── similarity_service.py
+│       │   Utility to calculate cosine similarities between two lists of embeddings.
+│       │
+│       └── section_extractor.py
+│           Utility to segment resume text into sections based on header keywords.
+
+frontend/
+├── src/
+│   ├── App.jsx
+│   │   The main root React component.
+│   │
+│   ├── pages/
+│   │   └── Home.jsx
+│   │       Acts as the wrapper view containing the FileUpload interface.
+│   │
+│   ├── components/
+│   │   ├── upload/
+│   │   │   └── FileUpload.jsx
+│   │   │       Manages the file inputs, upload triggers, and routes results to Dashboard.
+│   │   │
+│   │   ├── Dashboard.jsx
+│   │   │       Manages tab switching ("Parsed Resume" vs "ATS Analysis").
+│   │   │
+│   │   ├── ResumeParsed.jsx
+│   │   │       Renders basic details parsed from the resume (name, skills).
+│   │   │
+│   │   ├── AnalysisDashboard.jsx
+│   │   │       Renders the dashboard components representing the ATS match.
+│   │   │
+│   │   └── analysis/
+│   │       ├── OverallExplanationCard.jsx [NEW] - Explains overall score and contributions.
+│   │       ├── SkillsCard.jsx                 - Renders matched, missing, extra, and categories.
+│   │       ├── ProjectMatcherCard.jsx [NEW]  - Renders projects similarity and itemized matrix.
+│   │       ├── EducationCard.jsx [NEW]       - Renders degree, field, match status, and reason.
+│   │       └── ExperienceCard.jsx [NEW]      - Renders experience comparison, entry-level check.
+│   │
+│   └── styles/
+│       └── Card.css
+│           Defines the CSS styles for all cards.
+
+================================================================================
+SECTION 4 — EVERY FILE
+================================================================================
+
+1. main.py:
+- Purpose: Entry point for the FastAPI application.
+- Imports: FastAPI, CORSMiddleware, `app.api.resume.router`.
+- Connection: Includes the API routes and launches the server.
+
+2. app/api/resume.py:
+- Purpose: Defines HTTP endpoints. Exposes `POST /analyze`.
+- Inputs: `file: UploadFile` (Resume), `filejd: UploadFile` (JD).
+- Outputs: Dict containing the complete ATS analysis payload.
+- Connection: Passes the files' saved paths to `analyze_resume` in `analyze_service.py`.
+
+3. app/services/pdf_reader.py:
+- Purpose: Extracts plain text and hyperlink URIs from PDF files.
+- Imports: `fitz` (PyMuPDF).
+- Exported functions: `read_pdf(path: str)`.
+- Connection: Called by `analyze_resume` immediately after the PDFs are uploaded.
+
+4. app/services/nlp/section_extractor.py:
+- Purpose: Classifies resume lines into sections using header keywords.
+- Exported functions: `extract_resume_sections(text: str)`, `extract_jd_sections(text: str)`.
+- Connection: Called by `analyze_resume` to split the resume text.
+
+5. app/services/nlp/extractor.py:
+- Purpose: Contains the master skill set `ALL_SKILLS` and the token-boundary regex extractor.
+- Exported functions: `extract_skills(text: str)`.
+- Connection: Called by `analyze_resume` to extract candidate and JD skills.
+
+6. app/services/nlp/skill_normalizer.py:
+- Purpose: Maps synonyms and aliases (e.g. JS -> JavaScript) to a canonical representation.
+- Exported functions: `normalize_skill(skill: str)`.
+- Connection: Called by `concept_matcher.py` and `analyze_service.py` to sanitize skills.
+
+7. app/services/nlp/ontology.py:
+- Purpose: Defines the category ontology and propagates child matches to parent nodes.
+- Exported functions: `evaluate_ontology(skills_list: list)`.
+- Connection: Imported by `concept_matcher.py` to determine category matching statuses.
+
+8. app/services/nlp/skill_inference.py:
+- Purpose: Scans project text and infers underlying skills and concepts.
+- Exported functions: `infer_skills_from_text(text: str)`.
+- Connection: Called by `analyze_service.py` to augment the resume skill set.
+
+9. app/services/nlp/project_matcher.py:
+- Purpose: Performs fine-grained comparison of individual projects and JD responsibilities.
+- Exported functions: `match_projects(projects_text: str, responsibilities: list[str])`.
+- Connection: Called by `analyze_service.py` to compute project alignment.
+
+10. app/services/nlp/education_matcher.py:
+- Purpose: Evaluates educational qualifications by comparing degree ranks and fields.
+- Exported functions: `match_education(resume_edu: str, jd_edu: str)`.
+- Connection: Called by `analyze_service.py` to evaluate the candidate's degree.
+
+11. app/services/nlp/experience_matcher.py:
+- Purpose: Validates experience requirements, handling entry-level overrides.
+- Exported functions: `match_experience(resume_text: str, jd_experience_text: str)`.
+- Connection: Called by `analyze_service.py` to check years of experience.
+
+12. app/services/nlp/concept_matcher.py:
+- Purpose: Orchestrates exact matching, embedding semantic matching, and ontology category propagation.
+- Exported functions: `match_concepts(resume_skills: list, jd_skills: list)`.
+- Connection: Called by `analyze_service.py` to evaluate overall skill matching.
+
+13. app/services/nlp/semantic_reasoner.py:
+- Purpose: Analyzes segment scores, determines strengths/weaknesses, and gets Gemini matches explanation.
+- Exported functions: `get_strongest_weakest_areas(...)`, `explain_overall_score(...)`.
+- Connection: Called by `analyze_service.py` to get the final score text.
+
+14. app/services/nlp/embedding_service.py:
+- Purpose: Generates sentence embeddings locally.
+- Exported functions: `generate_embedding(text: str)`.
+- Connection: Called by `skill_matcher.py` (via cache) and `project_matcher.py` to create vectors.
+
+15. app/services/nlp/similarity_service.py:
+- Purpose: Computes cosine similarity between text vectors.
+- Exported functions: `calculate_similarities(em1, em2)`.
+- Connection: Called by `skill_matcher.py` and `project_matcher.py` to compute similarity floats.
+
+16. app/services/analyze_service.py:
+- Purpose: Main orchestrator function coordinating the entire matching process.
+- Exported functions: `analyze_resume(path_res: str, path_jd: str)`.
+- Connection: Exposes the primary analysis pipeline called by the API endpoint.
+
+17. app/services/gemini_service.py:
+- Purpose: Integrates the GenAI Client SDK and routes JSON prompt calls to Gemini.
+- Exported functions: `extract_jd(text: str)`, `client`.
+- Connection: Called by `analyze_resume` and `semantic_reasoner.py`.
+
+18. app/prompts/jd_extract.py:
+- Purpose: Defines the strict JSON prompt instructing Gemini to parse JD parameters.
+- Connection: Imported and used inside `gemini_service.py`.
+
+================================================================================
+SECTION 5 — EVERY FUNCTION
+================================================================================
+
+1. `read_pdf(path: str)`:
+- Purpose: Opens a PDF file, extracts plain text from all pages, and aggregates hyperlink URIs.
+- Parameters: `path` (str) - File path.
+- Returns: `(text, links)` (tuple of str and list[str]).
+- Internal logic: Iterates through PDF pages, calls `page.get_text()` and `page.get_links()`.
+- Complexity: O(N) where N is the number of pages.
+
+2. `extract_resume_sections(text: str)`:
+- Purpose: Classifies resume lines into sections (skills, projects, experience, education).
+- Parameters: `text` (str) - Full resume text.
+- Returns: `sections` (dict[str, str]).
+- Internal logic: Loops through lines, matches against header keywords in `SECTION_HEADERS`.
+
+3. `extract_skills(text: str)`:
+- Purpose: Extracts known skills from raw text using boundary-aware regex.
+- Parameters: `text` (str) - Input text.
+- Returns: `sorted_skills` (list[str]).
+- Internal logic: For each skill in `ALL_SKILLS`, compiles a custom boundary lookahead regex.
+- Complexity: O(S * T) where S is the number of master skills, T is text size.
+
+4. `normalize_skill(skill: str)`:
+- Purpose: Normalizes a skill string to its canonical form.
+- Parameters: `skill` (str).
+- Returns: `normalized_skill` (str).
+- Internal logic: Looks up key in `NORMALIZATION_MAPPING` or falls back to title/acronym case.
+
+5. `evaluate_ontology(skills_list: list)`:
+- Purpose: Evaluates category matching statuses bottom-up.
+- Parameters: `skills_list` (list).
+- Returns: `category_matches` (dict[str, bool]).
+- Internal logic: Propagates matching children counts iteratively to mark parents matched.
+
+6. `infer_skills_from_text(text: str)`:
+- Purpose: Infers implied technical and engineering concepts from project descriptions.
+- Parameters: `text` (str).
+- Returns: `inferred_skills` (list[str]).
+- Internal logic: Scans for explicit technologies and applies mapping rules.
+
+7. `match_projects(projects_text: str, responsibilities: list[str])`:
+- Purpose: Itemized project comparison against JD responsibilities.
+- Parameters: `projects_text` (str), `responsibilities` (list[str]).
+- Returns: `result_dict` (dict).
+- Internal logic: Splits sections, generates embeddings, computes similarity matrix, evaluates top matches.
+
+8. `match_education(resume_edu: str, jd_edu: str)`:
+- Purpose: Compares candidate degree rank and field against JD requirements.
+- Parameters: `resume_edu` (str), `jd_edu` (str).
+- Returns: `match_dict` (dict).
+- Internal logic: Parses degree levels and verifies fields of study using containment logic.
+
+9. `match_experience(resume_text: str, jd_experience_text: str)`:
+- Purpose: Evaluates experience years, overriding requirements for entry-level positions.
+- Parameters: `resume_text` (str), `jd_experience_text` (str).
+- Returns: `match_dict` (dict).
+- Internal logic: Parses years, handles entry-level keywords to set required years to 0.
+
+10. `match_concepts(resume_skills, jd_skills)`:
+- Purpose: Coordinates the core skill matching process.
+- Parameters: `resume_skills` (list), `jd_skills` (list).
+- Returns: `match_dict` (dict).
+- Internal logic: Normalizes lists, matches exact, matches semantic, and propagates ontology.
+
+11. `get_strongest_weakest_areas(...)`:
+- Purpose: Identifies high/low performance areas.
+- Returns: `(strongest, weakest)` (tuple of list[str]).
+
+12. `explain_overall_score(...)`:
+- Purpose: Generates natural language summary explaining scores.
+- Returns: `summary_text` (str).
+- Internal logic: Calls Gemini model with scores and lists of strengths/weaknesses.
+
+================================================================================
+SECTION 6 — AIML CONCEPTS USED
+================================================================================
+
+1. NLP (Natural Language Processing):
+Translates unstructured human text into machine-readable structures.
+- Why used: Resumes and JDs are written in natural language with arbitrary layouts.
+- Why better: Basic pattern matches fail if sentences or headers vary slightly.
+
+2. REGEX (Regular Expressions):
+Performs pattern matching on strings using token boundaries.
+- Why used: Extremely fast, deterministic, and highly accurate for matching exact terms.
+- Why better: LLMs are prone to hallucinating skills, whereas regex guarantees extraction.
+
+3. TOKENIZATION:
+Splits a sequence of text into individual units (tokens like words or symbols).
+- Why used: Essential to analyze word positions, boundaries, and punctuation during matching.
+
+4. SECTION EXTRACTION:
+Segments document text based on structural keywords.
+- Why used: Isolates sections so we can evaluate projects, education, and skills independently.
+
+5. NORMALIZATION:
+Translates text variations to a canonical form (e.g. JS -> JavaScript).
+- Why used: Ensures spelling differences don't break matching logic.
+
+6. KNOWLEDGE GRAPH / ONTOLOGY:
+Represents relations and hierarchies between concepts.
+- Why used: Captures category associations. A candidate with React and NestJS is logically matched to "Software Engineering" because the graph knows these are child technologies.
+- Why better: Basic text searches miss these conceptual relationships.
+
+7. SENTENCE EMBEDDINGS & VECTOR REPRESENTATION:
+Encodes text semantics into high-dimensional numerical vectors (384 floats).
+- Why used: Captures contextual meaning.
+- Why better: Word matches fail on synonyms, but vectors capture similarities automatically.
+
+8. COSINE SIMILARITY:
+Calculates angle proximity between text vectors.
+- Why used: Determines semantic similarity regardless of length.
+
+9. SEMANTIC SEARCH:
+Retrieves conceptually related items based on meaning rather than spelling.
+
+10. FEATURE EXTRACTION:
+Identifies key characteristics (skills, years, degrees) in text.
+
+11. EXACT vs SEMANTIC MATCHING:
+- Exact Match: Standardized string equality (fast, cheap).
+- Semantic Match: Vector similarity (handles synonyms).
+- Why used: Exact match is run first to avoid unnecessary vector calculations, using semantic matching only as a fallback.
+
+12. PROMPT ENGINEERING:
+Designing prompt inputs to get structured outputs from LLMs.
+- Why used: Enforces valid JSON from Gemini.
+
+13. HYBRID NLP + LLM PIPELINE:
+Combines local deterministic NLP algorithms with generative LLMs.
+- Why used: Runs matching locally to guarantee speed, consistency, and explainability, using the LLM only to generate natural language explanations.
+
+================================================================================
+SECTION 7 — API CONCEPTS USED
+================================================================================
+
+1. FastAPI: Exposes the backend server and handles the request/response lifecycle.
+2. ROUTES: Exposes endpoints (e.g. `/analyze`).
+3. HTTP METHODS:
+   - GET: `/` returns api status.
+   - POST: `/analyze` uploads files and returns analysis results.
+4. MULTIPART UPLOAD: Receives PDF files as binary streams.
+5. REQUEST/RESPONSE: Translates HTTP payloads to Python objects and vice-versa.
+6. CORS (Cross-Origin Resource Sharing): Middleware allowing the React frontend (running on port 5173) to securely request resources from the FastAPI backend (on port 8000).
+7. STATUS CODES: Returns `200 OK` for success and `422 Unprocessable Entity` for incorrect formats.
+8. MIDDLEWARE: Processes incoming requests (CORS checks) before they hit endpoints.
+
+================================================================================
+SECTION 8 — FRONTEND
+================================================================================
+
+1. REACT ARCHITECTURE:
+React uses a component-based UI model. When state changes, React recalculates the virtual DOM and updates the actual browser DOM.
+
+2. COMPONENT HIERARCHY:
+App.jsx
+  └── Home.jsx
+        └── FileUpload.jsx
+              └── Dashboard.jsx
+                    ├── ResumeParsed.jsx
+                    └── AnalysisDashboard.jsx
+                          ├── OverallExplanationCard.jsx
+                          ├── SkillsCard.jsx
+                          ├── ProjectMatcherCard.jsx
+                          ├── EducationCard.jsx
+                          └── ExperienceCard.jsx
+
+3. AXIOS:
+An HTTP client used by React to send files to the FastAPI server and handle JSON responses asynchronously.
+
+4. STATE MANAGEMENT (useState):
+Hooks to track inputs, loading states, active tabs, and analysis payloads.
+
+5. PROPS:
+Passes data (like the analysis object) down the component tree.
+
+6. CONDITIONAL RENDERING:
+- Renders a loading spinner during API request.
+- Renders the dashboard once data is loaded.
+- Renders specific tabs depending on navigation selection.
+
+================================================================================
+SECTION 9 — DATA FLOW
+================================================================================
+
+1. USER selects PDF files in the React browser and clicks "Upload Resume".
+2. REACT constructs `FormData` and issues a `POST` request using `Axios`.
+3. FASTAPI receives the files, saves them to `uploads/`, and calls `analyze_resume`.
+4. PDF READER parses the documents, returning plain text.
+5. SECTION EXTRACTOR segments the text.
+6. NLP SERVICES extract skills, infer stack details, and match them (exact & semantic).
+7. GEMINI parses experience, education, and responsibilities.
+8. EMBEDDING model generates vectors to compute project-to-responsibility similarity.
+9. ANALYZE SERVICE computes overall weighted score.
+10. SEMANTIC REASONER queries Gemini for score explanation.
+11. FASTAPI sends the formatted JSON payload back to React.
+12. REACT updates its state, triggers a re-render, and updates the component cards on screen.
+
+================================================================================
+SECTION 10 — SCORING
+================================================================================
+
+1. SKILL SCORE (45% weight):
+Measures matched JD skills. Reflects direct technical alignment.
+
+2. EXPERIENCE SCORE (25% weight):
+Compares candidate years to JD requirements. (Matches score 100%, lower scores are proportional).
+
+3. PROJECT SCORE (20% weight):
+Evaluates project similarity against responsibilities (60% max similarity + 40% responsibility coverage).
+
+4. EDUCATION SCORE (10% weight):
+100% if degree level and field match; 50% if only one matches; 0% if none match.
+
+5. OVERALL SCORE:
+Weighted sum of the four dimensions.
+
+RATIONALE FOR WEIGHTAGES:
+- Skills (45%) represent technical competency (the primary requirement).
+- Experience (25%) represents candidate maturity and professional capacity.
+- Projects (20%) demonstrate practical applications.
+- Education (10%) represents background qualification checks.
+
+================================================================================
+SECTION 11 — DESIGN DECISIONS
+================================================================================
+
+1. WHY HYBRID NLP + GEMINI:
+Guarantees 100% deterministic matching. Avoids LLM hallucinations and high API costs, utilizing Gemini only for natural language summaries.
+
+2. WHY EMBEDDINGS & COSINE SIMILARITY:
+Allows matching synonyms without hardcoded dictionary definitions.
+
+3. WHY NORMALIZATION:
+Prevents casing or spelling variations (e.g. JS vs JavaScript) from breaking exact matches.
+
+4. WHY REGEX WITH CUSTOM BOUNDARIES:
+Word boundaries (`\b`) fail on technical terms like C++ or .NET. Custom lookahead/behind bounds ensure exact matches.
+
+5. WHY ONTOLOGY KNOWLEDGE GRAPH:
+Allows matching general engineering concepts (e.g., Software Engineering) when specific subskills (Frontend, Backend, Git) are met.
+
+6. WHY EXACT MATCHING FIRST:
+Drastically reduces compute times by avoiding embedding generation for exact term matches.
+
+================================================================================
+SECTION 12 — FUTURE IMPROVEMENTS
+================================================================================
+
+1. LOCAL EMBEDDING CACHE PERSISTENCE:
+Save embedding caches in a database (e.g. SQLite) to avoid regenerating vectors across server restarts.
+
+2. ADVANCED LAYOUT PARSING:
+Use OCR or structured PDF parsers (like LayoutLM) to handle multi-column resumes.
+
+3. DYNAMIC WEIGHTING:
+Allow recruiters to customize weighting configurations via the React UI.
+
+4. MACHINE LEARNING CLASSIFIERS:
+Train custom classifiers (e.g., SVM or Random Forest) on historical hiring data to optimize score weights dynamically.
+================================================================================
+
+| Problem             | Solution            | Why                  |
+| ------------------- | ------------------- | -------------------- |
+| Read PDFs           | PyMuPDF             | Fast text extraction |
+| Resume Sections     | Regex               | Deterministic        |
+| Resume Skills       | Dictionary + Regex  | No hallucinations    |
+| JD Parsing          | Gemini              | Better reasoning     |
+| Skill Matching      | Exact + Embeddings  | Fast + semantic      |
+| Project Matching    | Sentence Embeddings | Measures meaning     |
+| Education Matching  | Rule-based          | Deterministic        |
+| Experience Matching | Regex               | Reliable             |
+
+POST /analyze   ↓    resume.py   ↓    analyze_resume()   ↓    read_pdf()   ↓    extract_resume_sections()   ↓    extract_skills()   ↓    infer_resume_skills()   ↓    normalize_skills()   ↓    extract_jd()   ↓    normalize_jd()   ↓    match_skills()   ↓    match_projects()   ↓    match_education()   ↓    match_experience()   ↓    calculate_scores()   ↓    overall_reasoner()   ↓    return JSON

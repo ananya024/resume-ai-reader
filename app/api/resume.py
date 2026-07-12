@@ -1,5 +1,6 @@
 # resume.py
 
+from typing import Optional
 from fastapi import APIRouter, UploadFile
 from app.services.analyze_service import analyze_resume
 
@@ -13,9 +14,15 @@ def root():
     }
 
 @router.post("/analyze")
-async def upload_resume(file:UploadFile):
+async def upload_resume(file:UploadFile,filejd:UploadFile):
     contents = await file.read()
     file_path= f"uploads/{file.filename}"
     with open(file_path,"wb") as f:
         f.write(contents)
-    return analyze_resume(file_path)
+    
+    contentsjd = await filejd.read()
+    file_path_jd= f"uploads/{filejd.filename}"
+    with open(file_path_jd,"wb") as f:
+        f.write(contentsjd)
+            
+    return analyze_resume(file_path, file_path_jd)

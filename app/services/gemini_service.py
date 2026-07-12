@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from google.genai import Client
 from app.prompts.parse_prompt import PARSE_PROMPT
 from app.prompts.analyze_prompt import ANALYZE_PROMPT
+from app.prompts.jd_extract import EXTRACT_PROMPT
 
 load_dotenv() 
 # reads .env
@@ -52,4 +53,8 @@ def parse_resume(text:str, link:list[str]):
 
 def analyze_json(parsed: dict):
     prompt = ANALYZE_PROMPT + json.dumps(parsed, indent=2)
+    return generate_json(prompt)
+
+def extract_jd(text:str):
+    prompt = EXTRACT_PROMPT+text
     return generate_json(prompt)
