@@ -12,7 +12,7 @@ import ProjectsCard from "./analysis/ProjectsCard";
 import CertificationsCard from "./analysis/CertificationsCard";
 
 function ResumeParsed({ parsedResume }) {
-    console.log(parsedResume);
+    print(parsedResume)
     if (!parsedResume)
         return null;
 
@@ -25,27 +25,27 @@ function ResumeParsed({ parsedResume }) {
             <div className="dashboard">
 
                 <ContactCard
-                    parsedResume={parsedResume}
+                    parsedResume={parsedResume || []}
                 />
 
                 <SkillsCard
-                    skills={parsedResume.skills}
+                    skills={parsedResume.skills || []}
                 />
 
                 <EducationCard
-                    education={parsedResume.education}
+                    education={parsedResume.education || []}
                 />
 
                 <ExperienceCard
-                    experience={parsedResume.experience}
+                    experience={parsedResume.experience || []}
                 />
 
                 <ProjectsCard
-                    projects={parsedResume.projects}
+                    projects={parsedResume.projects || []}
                 />
 
                 <CertificationsCard
-                    certifications={parsedResume.certifications}
+                    certifications={parsedResume.certifications  || []}
                 />
 
             </div>
