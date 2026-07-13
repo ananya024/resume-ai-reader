@@ -589,3 +589,9 @@ Train custom classifiers (e.g., SVM or Random Forest) on historical hiring data 
 | Experience Matching | Regex               | Reliable             |
 
 POST /analyze   ↓    resume.py   ↓    analyze_resume()   ↓    read_pdf()   ↓    extract_resume_sections()   ↓    extract_skills()   ↓    infer_resume_skills()   ↓    normalize_skills()   ↓    extract_jd()   ↓    normalize_jd()   ↓    match_skills()   ↓    match_projects()   ↓    match_education()   ↓    match_experience()   ↓    calculate_scores()   ↓    overall_reasoner()   ↓    return JSON
+
+| Technique                                                                                             | Files                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Rule-based NLP** (regex, section extraction, normalization, ontology, experience/education parsing) | `extractor.py`, `section_extractor.py`, `skill_normalizer.py`, `ontology.py`, `experience_matcher.py`, `education_matcher.py` |
+| **ML-based NLP** (sentence embeddings + semantic similarity)                                          | `embedding_service.py`, `similarity_service.py`, `project_matcher.py`, parts of `concept_matcher.py`                          |
+| **LLM-based NLP**                                                                                     | `gemini_service.py`, `semantic_reasoner.py`                                                                                   |

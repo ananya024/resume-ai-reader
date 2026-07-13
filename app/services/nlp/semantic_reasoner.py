@@ -62,7 +62,7 @@ Explain why the candidate received the overall score of {overall_score}/100. Wri
 """
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.1-flash-lite",
             contents=prompt
         )
         text = response.text.strip()
